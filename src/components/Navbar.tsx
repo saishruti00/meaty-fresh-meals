@@ -1,56 +1,78 @@
-import { ShoppingCart, User, Search, Menu } from "lucide-react";
+import { Search, ShoppingCart, User, MapPin, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [location, setLocation] = useState("Bengaluru");
+
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 z-50 bg-background border-b shadow-sm">
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex items-center justify-between h-16 gap-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
-            <span className="text-xl font-bold text-foreground">FreshCuts</span>
+          <Link to="/" className="flex items-center gap-2 flex-shrink-0">
+            <span className="text-2xl font-bold text-primary">FreshCuts</span>
           </Link>
 
+          {/* Location Selector - Desktop */}
+          <Button 
+            variant="ghost" 
+            className="hidden md:flex items-center gap-2 text-sm hover:bg-muted/50"
+          >
+            <MapPin className="h-4 w-4 text-primary" />
+            <div className="text-left">
+              <div className="font-medium">{location}</div>
+              <div className="text-xs text-muted-foreground">Detecting Location</div>
+            </div>
+            <ChevronDown className="h-4 w-4 text-muted-foreground" />
+          </Button>
+
           {/* Search Bar - Hidden on mobile */}
-          <div className="hidden md:flex flex-1 max-w-md mx-8">
+          <div className="hidden md:flex flex-1 max-w-xl">
             <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 type="search"
-                placeholder="Search for chicken, mutton, fish..."
-                className="pl-10 w-full"
+                placeholder="Search for any delicious product"
+                className="pl-10 w-full bg-muted/30 border-muted focus:bg-background"
               />
             </div>
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="hidden md:flex">
-              <User className="h-5 w-5" />
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <Button variant="ghost" asChild className="hidden md:flex gap-2">
+              <Link to="/categories">
+                <span className="text-sm font-medium">Categories</span>
+              </Link>
             </Button>
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-[10px] font-bold text-primary-foreground flex items-center justify-center">
-                0
-              </span>
+            <Button variant="ghost" asChild className="hidden md:flex gap-2">
+              <Link to="/profile">
+                <User className="h-5 w-5" />
+                <span className="text-sm font-medium">Login</span>
+              </Link>
             </Button>
-            <Button variant="ghost" size="icon" className="md:hidden">
-              <Menu className="h-5 w-5" />
+            <Button variant="ghost" size="icon" asChild className="relative">
+              <Link to="/cart">
+                <ShoppingCart className="h-5 w-5" />
+                <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
+                  0
+                </span>
+              </Link>
             </Button>
           </div>
         </div>
 
         {/* Mobile Search */}
-        <div className="pb-3 md:hidden">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <div className="md:hidden pb-3">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
               type="search"
-              placeholder="Search products..."
-              className="pl-10 w-full"
+              placeholder="Search for any delicious product"
+              className="pl-10 w-full bg-muted/30 border-muted"
             />
           </div>
         </div>

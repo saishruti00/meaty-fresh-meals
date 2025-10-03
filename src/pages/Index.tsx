@@ -45,7 +45,10 @@ const Index = () => {
       name: "Chicken Curry Cut (Small)",
       image: chickenImage,
       price: 299,
+      originalPrice: 349,
       weight: "500g",
+      pieces: "6-8 Pieces",
+      serves: "Serves 2-3",
       inStock: true,
       discount: 15,
     },
@@ -54,25 +57,36 @@ const Index = () => {
       name: "Fresh Mutton Curry Cut",
       image: muttonImage,
       price: 599,
+      originalPrice: 699,
       weight: "500g",
+      pieces: "8-10 Pieces",
+      serves: "Serves 2-3",
       inStock: true,
+      discount: 14,
     },
     {
       id: "3",
       name: "Premium Salmon Fillet",
       image: seafoodImage,
       price: 799,
+      originalPrice: 999,
       weight: "250g",
+      pieces: "2-3 Pieces",
+      serves: "Serves 2",
       inStock: true,
-      discount: 10,
+      discount: 20,
     },
     {
       id: "4",
       name: "Tandoori Chicken (Marinated)",
       image: readyToCookImage,
       price: 399,
+      originalPrice: 449,
       weight: "500g",
+      pieces: "4-6 Pieces",
+      serves: "Serves 2-3",
       inStock: true,
+      discount: 11,
     },
   ];
 
@@ -153,18 +167,35 @@ const Index = () => {
       {/* Categories */}
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-foreground">Shop by Category</h2>
-            <Button variant="ghost" asChild>
-              <Link to="/categories">
-                View All <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-foreground mb-2">Shop by categories</h2>
+            <p className="text-muted-foreground">Freshest meats and much more!</p>
           </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {categories.map((category) => (
-              <CategoryCard key={category.title} {...category} />
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-6">
+            {[
+              { title: "Chicken", image: chickenImage, href: "/categories" },
+              { title: "Fish & Seafood", image: seafoodImage, href: "/categories" },
+              { title: "Ready to cook", image: readyToCookImage, href: "/categories" },
+              { title: "Mutton", image: muttonImage, href: "/categories" },
+              { title: "Prawns & Crabs", image: seafoodImage, href: "/categories" },
+              { title: "Combos", image: readyToCookImage, href: "/categories" },
+            ].map((category) => (
+              <Link 
+                key={category.title} 
+                to={category.href}
+                className="flex flex-col items-center gap-3 group"
+              >
+                <div className="relative w-full aspect-square rounded-full overflow-hidden bg-muted shadow-md group-hover:shadow-lg transition-all duration-300">
+                  <img
+                    src={category.image}
+                    alt={category.title}
+                    className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+                <span className="text-sm font-medium text-foreground text-center group-hover:text-primary transition-colors">
+                  {category.title}
+                </span>
+              </Link>
             ))}
           </div>
         </div>
@@ -173,13 +204,9 @@ const Index = () => {
       {/* Featured Products */}
       <section className="py-12 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-foreground">Featured Products</h2>
-            <Button variant="ghost" asChild>
-              <Link to="/categories">
-                View All <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-foreground mb-2">Premium fish & seafood selection</h2>
+            <p className="text-muted-foreground">Same-day catch, fresh & flavourful</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
